@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 
-# Entrypoint file
-
 app = FastAPI()
 
 @app.get("/")
