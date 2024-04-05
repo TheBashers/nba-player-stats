@@ -5,27 +5,27 @@ class PlayerGamelog(BaseModel):
     season: int
     date: str
     team: str
-    is_home_game: bool
-    opponent_team: str
-    player_team_score: int
-    opponent_team_score: int
-    player_id: int
+    isHomeGame: bool
+    opponentTeam: str
+    playerTeamScore: int
+    opponentTeamScore: int
+    playerId: int
     position: str
-    is_starter: bool
-    minutes_played: float
+    isStarter: bool
+    minutesPlayed: float
     points: int
-    fieldgoals_made: int
-    fieldgoals_attempted: int
-    threes_made: int
-    threes_attempted: int
-    freethrows_made: int
-    freethrows_attempted: int
-    offensive_rebounds: int
-    defensive_rebounds: int
-    total_rebounds: int
+    fieldGoalsMade: int
+    fieldGoalsAttempted: int
+    threesMade: int
+    threesAttempted: int
+    freeThrowsMade: int
+    freeThrowsAttempted: int
+    offensiveRebounds: int
+    defensiveRebounds: int
+    rebounds: int
     assists: int
     steals: int
     blocks: int
     turnovers: int
     fouls: int
-    plus_minus: int
+    plusMinus: int

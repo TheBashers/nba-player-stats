@@ -7,9 +7,9 @@ from config.database import players_collection
 from schemas.serialize_players import serialize_players
 import time
 
-def webscrape_gamelogs():
+def fetch_nba_players():
 
-    players = {player['player_id']: player for player in serialize_players(players_collection.find())}
+    players = {player['playerId']: player for player in serialize_players(players_collection.find())}
 
     current_date = datetime.now()
     current_year = current_date.year
@@ -46,7 +46,7 @@ def webscrape_gamelogs():
         game_ids = [game.find('a').get('href').split('/')[4] for game in boxscore_btns]
         for game_id in game_ids:
             try:
-                time.sleep(.5)
+                time.sleep(.6)
 
                 matchup_response = requests.get(f'https://sportsdata.usatoday.com/basketball/nba/scores/{game_id}')
                 soup = BeautifulSoup(matchup_response.text, 'html')
@@ -103,7 +103,7 @@ def webscrape_gamelogs():
                                 freethrows_attempted = float(gamelog[5].text.split('-')[1])
                                 offensive_rebounds = int(gamelog[6].text)
                                 defensive_rebounds = int(gamelog[7].text)
-                                rebounds_total = int(gamelog[8].text)
+                                rebounds = int(gamelog[8].text)
                                 assists = int(gamelog[9].text)
                                 turnovers = int(gamelog[10].text)
                                 steals = int(gamelog[11].text)
@@ -116,33 +116,33 @@ def webscrape_gamelogs():
                                     season=season,
                                     date=game_date,
                                     team=player_team,
-                                    is_home_game=is_home_game,
-                                    opponent_team=opposing_team,
-                                    player_team_score=player_team_score,
-                                    opponent_team_score=opposing_team_score,
-                                    player_id=player_id,
+                                    isHomeGame=is_home_game,
+                                    opponentTeam=opposing_team,
+                                    playerTeamScore=player_team_score,
+                                    opponentTeamScore=opposing_team_score,
+                                    playerId=player_id,
                                     position=position,
-                                    is_starter=started_game,
-                                    minutes_played=minutes_played,
+                                    isStarter=started_game,
+                                    minutesPlayed=minutes_played,
                                     points=points_scored,
-                                    fieldgoals_made=fieldgoals_made,
-                                    fieldgoals_attempted=fieldgoals_attempted,
-                                    threes_made=threes_made,
-                                    threes_attempted=threes_attempted,
-                                    freethrows_made=freethrows_made,
-                                    freethrows_attempted=freethrows_attempted,
-                                    offensive_rebounds=offensive_rebounds,
-                                    defensive_rebounds=defensive_rebounds,
-                                    total_rebounds=rebounds_total,
+                                    fieldGoalsMade=fieldgoals_made,
+                                    fieldGoalsAttempted=fieldgoals_attempted,
+                                    threesMade=threes_made,
+                                    threesAttempted=threes_attempted,
+                                    freeThrowsMade=freethrows_made,
+                                    freeThrowsAttempted=freethrows_attempted,
+                                    offensiveRebounds=offensive_rebounds,
+                                    defensiveRebounds=defensive_rebounds,
+                                    rebounds=rebounds,
                                     assists=assists,
                                     steals=steals,
                                     blocks=blocks,
                                     turnovers=turnovers,
                                     fouls=fouls,
-                                    plus_minus=plus_minus
+                                    plusMinus=plus_minus
                                 )
                                 player_gamelogs_collection.update_one(
-                                    {"player_id": dict(gamelog)["player_id"], "date": dict(gamelog)["date"]},
+                                    {"playerId": dict(gamelog)["playerId"], "date": dict(gamelog)["date"]},
                                     {"$set": dict(gamelog)},
                                     upsert=True
                                 )
@@ -151,33 +151,33 @@ def webscrape_gamelogs():
                                     season=season,
                                     date=game_date,
                                     team=player_team,
-                                    is_home_game=is_home_game,
-                                    opponent_team=opposing_team,
-                                    player_team_score=player_team_score,
-                                    opponent_team_score=opposing_team_score,
-                                    player_id=player_id,
+                                    isHomeGame=is_home_game,
+                                    opponentTeam=opposing_team,
+                                    playerTeamScore=player_team_score,
+                                    opponentTeamScore=opposing_team_score,
+                                    playerId=player_id,
                                     position=position,
-                                    is_starter=False,
-                                    minutes_played=0,
+                                    isStarter=False,
+                                    minutesPlayed=0,
                                     points=0,
-                                    fieldgoals_made=0,
-                                    fieldgoals_attempted=0,
-                                    threes_made=0,
-                                    threes_attempted=0,
-                                    freethrows_made=0,
-                                    freethrows_attempted=0,
-                                    offensive_rebounds=0,
-                                    defensive_rebounds=0,
-                                    total_rebounds=0,
+                                    fieldGoalsMade=0,
+                                    fieldGoalsAttempted=0,
+                                    threesMade=0,
+                                    threesAttempted=0,
+                                    freeThrowsMade=0,
+                                    freeThrowsAttempted=0,
+                                    offensiveRebounds=0,
+                                    defensiveRebounds=0,
+                                    rebounds=0,
                                     assists=0,
                                     steals=0,
                                     blocks=0,
                                     turnovers=0,
                                     fouls=0,
-                                    plus_minus=0
+                                    plusMinus=0
                                 )
                                 player_gamelogs_collection.update_one(
-                                    {"player_id": dict(gamelog)["player_id"], "date": dict(gamelog)["date"]},
+                                    {"playerId": dict(gamelog)["playerId"], "date": dict(gamelog)["date"]},
                                     {"$set": dict(gamelog)},
                                     upsert=True
                                 )

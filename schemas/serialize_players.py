@@ -2,17 +2,27 @@ from models.player import Player
 
 def serialize_player(player: Player) -> dict:
     return {
-        "player_id": player["player_id"],
-        "rotowire_id": player["rotowire_id"],
+        "playerId": player["playerId"],
+        "nbaApiPlayerId": player["nbaApiPlayerId"],
+        "rotowireId": player["rotowireId"],
+        "fantasyPositions": player["fantasyPositions"],
         "position": player["position"],
-        "first_name": player["first_name"],
-        "last_name": player["last_name"],
+        "firstName": player["firstName"],
+        "lastName": player["lastName"],
         "team": player["team"],
         "height": player["height"],
         "weight": player["weight"],
         "age": player["age"],
-        "depth_chart_order": player["depth_chart_order"],
-        "injury_status": player["injury_status"]
+        "depthChartOrder": player["depthChartOrder"],
+        "injuryStatus": player["injuryStatus"],
+        "recentNews": player["recentNews"],
+        "fantasyOutlook": player["fantasyOutlook"],
+        "jerseyNumber": player["jerseyNumber"],
+        "team": player["team"],
+        "seasonProjections": player["seasonProjections"],
+        "seasonTotals": player["seasonTotals"],
+        "dropCount": player["dropCount"],
+        "addCount": player["addCount"]
     }
 
 def serialize_players(players) -> list:

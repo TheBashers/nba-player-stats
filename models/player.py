@@ -3,14 +3,24 @@ from typing import Optional
 
 # A percentile between 0 and 33 would be considered below average, 33 and 66 average, and 66 and 100 above average
 class Player(BaseModel):
-    player_id: int
-    rotowire_id: Optional[int]
+    playerId: int
+    nbaApiPlayerId: Optional[int]
+    rotowireId: Optional[int]
+    fantasyPositions: list
     position: str
-    first_name: str
-    last_name: str
+    firstName: str
+    lastName: str
     team: Optional[str]
     height: int
     weight: int
     age: int
-    depth_chart_order: Optional[int]
-    injury_status: Optional[str]
+    depthChartOrder: Optional[int]
+    injuryStatus: Optional[str]
+    recentNews: Optional[str]
+    fantasyOutlook: Optional[str]
+    jerseyNumber: Optional[int]
+    team: Optional[dict]
+    seasonProjections: Optional[dict]
+    seasonTotals: Optional[dict]
+    dropCount: Optional[int]
+    addCount: Optional[int]
